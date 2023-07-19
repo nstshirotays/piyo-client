@@ -157,8 +157,8 @@ const Quake = () => {
           Array.from({ length }, (_, i) => dquakeInstance.methods.agreements(i).call())
         );
         setInsData(data);
-        
-        
+
+
         await getEthBalance(account);
         await getPremiumBalance(account);
         await fetchInsData();
@@ -195,7 +195,10 @@ const Quake = () => {
 
 
   const handleCitySelect = (cityCode) => {
-    setCityCode(cityCode);
+    // 市区町村コードは５桁＋１桁のチェックデジット
+    // 地震情報における地域ごとのコードは、市区町村コード５桁＋00
+    const newCityCode = cityCode.slice(0, -1) + '00';
+    setCityCode(newCityCode);
   };
 
   // 保険契約を実行する非同期関数
